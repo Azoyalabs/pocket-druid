@@ -51,7 +51,7 @@
 			}
 		}),
 		table.column({
-			accessor: ({ message }) => message.msg.insert_data.format,
+			accessor: ({ message }) => message.msg.insert_data.format ?? "Unknown",
 			header: 'Data Format',
 			plugins: {
 				filter: {

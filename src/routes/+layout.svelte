@@ -4,7 +4,6 @@
 	import '../app.postcss';
 	import { browser } from '$app/environment';
 	import WalletButton from '$lib/components/ui/WalletButton/WalletButton.svelte';
-	import { Walletguard } from '$lib/components/ui/authguard';
 	import { NATIVE_BALANCE, USER_ADDRESS } from '$lib/state';
 	import { Toaster } from 'svelte-french-toast';
 	import Spinner from '$lib/components/ui/spinner/Spinner.svelte';
@@ -12,6 +11,8 @@
 	import { PUBLIC_DECIMALS } from '$env/static/public';
 	import { recommendNetwork } from '$lib/network/config';
 	import { numberFormatter } from '$lib/utils';
+	import { Github } from 'lucide-svelte';
+	import { Button } from '$lib/components/ui/button';
 
 	const links = [
 		{
@@ -35,10 +36,6 @@
 	$: pathName = browser ? $page.url.pathname : '';
 </script>
 
-<svelte:head>
-	<title>Pocket Druid - knowledge explorer for OKP4</title>
-</svelte:head>
-
 <Toaster />
 <Layout {links} pathname={pathName}>
 	<div slot="header" class="flex justify-between w-full px-4 py-4 mx-auto max-w-screen-2xl">
@@ -54,19 +51,21 @@
 		</div>
 
 		{#if $USER_ADDRESS && $NATIVE_BALANCE}
-		{@const displayedAddress = `${$USER_ADDRESS.slice(0, 6)}...${$USER_ADDRESS.slice($USER_ADDRESS.length-6)}`}
+			{@const displayedAddress = `${$USER_ADDRESS.slice(0, 6)}...${$USER_ADDRESS.slice(
+				$USER_ADDRESS.length - 6
+			)}`}
 			<div class="flex items-center px-2 py-1 space-x-3 border rounded-md">
 				<div class="w-9 h-9">
-					<Keplr></Keplr>
+					<Keplr />
 				</div>
 				<div class="text-sm text-right">
 					<div class="text-sm font-semibold tracking-wide">
 						{displayedAddress}
 					</div>
-					<div class="text-xs mt-0.5 ">
-						{numberFormatter(parseInt($NATIVE_BALANCE.amount) * Math.pow(10, -PUBLIC_DECIMALS))} <span class="tracking-wide">{recommendNetwork.currencies[0].coinDenom}</span>
+					<div class="text-xs mt-0.5">
+						{numberFormatter(parseInt($NATIVE_BALANCE.amount) * Math.pow(10, -PUBLIC_DECIMALS))}
+						<span class="tracking-wide">{recommendNetwork.currencies[0].coinDenom}</span>
 					</div>
-
 				</div>
 			</div>
 		{:else}
@@ -84,18 +83,8 @@
 		{/if}
 	</div>
 </Layout>
-
-<!-- 
-<div class="relative flex flex-col min-h-screen">
-	<div class="fixed top-0 w-full h-12 bg-red-500">header info</div>
-
-	
-	<nav class="fixed bottom-0 w-full bg-red-500">
-		<div class="flex items-center w-full max-w-screen-xl px-3 py-2 mx-auto bg-blue-500 justify-evenly">
-			{#each links as link}
-				<Button href={link.href} class="block">{link.title}</Button>
-			{/each}
-		</div>
-	</nav>
-</div>
- -->
+<footer class="flex items-center justify-center px-4 py-4 border-t">
+	<Button href="https://github.com/Azoyalabs/pocket-druid" class="rounded-full" variant="ghost">
+		<Github />
+	</Button>
+</footer>

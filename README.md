@@ -15,6 +15,8 @@ This web interface:
 Known issues:
 - Transaction searching can be slow
 
+The application is available [here](https://pocket-druid.vercel.app/)
+
 ## Getting Started
 ```bash
 pnpm install

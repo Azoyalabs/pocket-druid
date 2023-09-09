@@ -101,7 +101,7 @@ export const load = (async () => {
 			const messages = decoded.body.messages.map((m) => {
 				const decoded = MsgExecuteContract.decode(m.value);
 
-				const msg: { insert_data: { format: string; data: string } } = JSON.parse(
+				const msg: { insert_data: { format?: string; data: string } } = JSON.parse(
 					fromUtf8(decoded.msg)
 				);
 
